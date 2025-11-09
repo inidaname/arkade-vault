@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package vault;
+option go_package = "github.com/inidaname/arkade-vault/proto;proto";
+
+service ContractService {
+  rpc CreateWallet (CreateWalletRequest) returns (CreateWalletResponse);
+  rpc GetWallet (GetWalletRequest) returns (GetWalletResponse);
+}
+
+service SignerService {
+  rpc SignTransaction (SignTransactionRequest) returns (SignTransactionResponse);
+}
+
+message CreateWalletRequest {
+  string owner_id = 1;
+  string script_type = 2; 
+}
+
+message CreateWalletResponse {
+  string wallet_id = 1;
+  string address = 2;
+  string script_hex = 3;
+}
+
+message GetWalletRequest {
+  string wallet_id = 1;
+}
+
+message GetWalletResponse {
+  string address = 1;
+  string script_hex = 2;
+  string balance = 3;
+}
+
+message SignTransactionRequest {
+  string wallet_id = 1;
+  string unsigned_tx = 2;
+}
+
+message SignTransactionResponse {
+  string signed_tx = 1;
+}
